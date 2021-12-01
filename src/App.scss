@@ -1,5 +1,16 @@
-.App {
+*{
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  color: #222222;
   font-family: 'Open Sans', sans-serif;
-  width: 80%;
-  margin: 0 auto;
+  .App{
+    .App-body{
+      width: 80%;
+      margin: 20px auto;
+    }
+  }
 }
