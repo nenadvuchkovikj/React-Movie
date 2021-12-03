@@ -1,66 +1,68 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import React, {useEffect} from 'react';
 import {useParams} from 'react-router';
 import Time from '../../assets/time.svg';
 import {Loader} from '../Loader/Loader';
 import './MovieDetails.scss';
 import BlackStar from '../../assets/black-star.svg';
 import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { getMovieDetailsFromAPI } from '../../actions/getMovieDetails';
+import { NotFound } from '../NotFound/NotFound';
 
 export const MovieDetails = ({currentPage}) => {
-    const [movie, setMovie] = useState([]);
-    const [loading, setLoading] = useState(true);
     const {movieId} = useParams();
-    let history = useHistory();
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const movieData = useSelector(state => state.movieDetailsDataReducer.movieData);
+    const isLoading = useSelector(state => state.movieDetailsDataReducer.loading);
+    const error = useSelector(state => state.movieDetailsDataReducer.error);
 
     useEffect(() => {
-        axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.REACT_APP_MOVIE_API_KEY}&language=en-US`)
-        .then(res => {
-            setMovie(res.data);
-            setLoading(false);
-        });
-    }, [movieId]);
+       dispatch(getMovieDetailsFromAPI(movieId));
+    }, [movieId, dispatch]);
 
     const goBack = () => {
         history.goBack();
     }
 
-
     return (
         <>
-        {!loading ? 
-                <div className="movie-details-container" style={{backgroundImage: `url('https://image.tmdb.org/t/p/w1280${movie.backdrop_path}')`}}>
-                <div className="back-button" onClick={goBack}>&#8249; Back</div>
-                <div className="movie-details">
-                    <img className="main-picture" alt="Poster" src={`https://image.tmdb.org/t/p/w1280${movie.poster_path}`} width="450" />
-                    <div className="movie-details-info">
-                        <div className="title">
-                            <h1>{movie.title}</h1>
-                            <p>{movie.release_date}  ({movie.status})</p>
-                        </div>
-                        <div className="genres">
-                            {movie.genres?.map( genre => {
-                                return <div className="genre" key={genre.id}>{genre.name}</div>
-                            })
-                            }
-                        </div>
-                        <div className="overview">
-                            <p>{movie.overview}</p>
-                        </div>
-                        <div className="time-rating">
-                            <div className="time">
-                                <img src={Time} width="30" alt="Time" />
-                                {movie.runtime} min.
+        {!isLoading ?
+            <>
+                {!error ?
+                    <div className="movie-details-container" style={{backgroundImage: `url('https://image.tmdb.org/t/p/w1280${movieData?.backdrop_path}')`}}>
+                        <div className="back-button" onClick={goBack}>&#8249; Back</div>
+                        <div className="movie-details">
+                            <img className="main-picture" alt="Poster" src={`https://image.tmdb.org/t/p/w1280${movieData.poster_path}`} width="450" />
+                            <div className="movie-details-info">
+                                <div className="title">
+                                    <h1>{movieData.title}</h1>
+                                    <p>{movieData.release_date}  ({movieData.status})</p>
+                                </div>
+                                <div className="genres">
+                                    {movieData.genres?.map( genre => {
+                                        return <div className="genre" key={genre.id}>{genre.name}</div>
+                                    })
+                                    }
+                                </div>
+                                <div className="overview">
+                                    <p>{movieData.overview}</p>
+                                </div>
+                                <div className="time-rating">
+                                    <div className="time">
+                                        <img src={Time} width="30" alt="Time" />
+                                        {movieData.runtime} min.
+                                    </div>
+                                    <div className="rating">
+                                        <img src={BlackStar} width="30" alt="Star" />
+                                        {movieData.vote_average}
+                                    </div>
+                                </div>
                             </div>
-                            <div className="rating">
-                                <img src={BlackStar} width="30" alt="Star" />
-                                {movie.vote_average}
-                            </div>
                         </div>
-                    </div>
-                </div>
-
-            </div> : <div className="loader"><Loader /></div>}
+                    </div> : <NotFound />
+                }
+            </> : <div className="loader"><Loader /></div>}
         </>
         
     )

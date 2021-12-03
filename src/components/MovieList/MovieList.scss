@@ -1,3 +1,5 @@
+@import '../../constants/colors.scss';
+
 .movies{
     width: 80%;
     margin: 20px auto;
@@ -21,25 +23,23 @@
             a{
                 cursor: pointer;
                 padding: 0 10px;
-                -webkit-user-select: none; /* Safari */        
-                -moz-user-select: none; /* Firefox */
-                -ms-user-select: none; /* IE10+/Edge */
-                user-select: none; /* Standard */
             }
         }
         .break{
             a{
                 cursor: pointer;
-                -webkit-user-select: none; /* Safari */        
-                -moz-user-select: none; /* Firefox */
-                -ms-user-select: none; /* IE10+/Edge */
-                user-select: none; /* Standard */
             }
+        }
+        .page-number, .next, .previous, .break{
+            -webkit-user-select: none; /* Safari */        
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE10+/Edge */
+            user-select: none; /* Standard */
         }
         .active-page{
             a{
-                background-color: #d7ddd1;
-                box-shadow: 0px 0px 2px black;
+                background-color: $main-color;
+                box-shadow: 0px 0px 2px $black;
             }
         }
     }

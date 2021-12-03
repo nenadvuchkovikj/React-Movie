@@ -1,9 +1,11 @@
+@import './constants/colors.scss';
+
 *{
   margin: 0;
   box-sizing: border-box;
 }
 body {
-  background-color: #f4f4f4;
-  color: #222222;
+  background-color: $light-gray;
+  color: $text-color;
   font-family: 'Open Sans', sans-serif;
 }

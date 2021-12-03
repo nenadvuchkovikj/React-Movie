@@ -1,14 +1,16 @@
+@import '../../constants/colors.scss';
+
 a{
     text-decoration: none;
     margin: 10px;
 }
 .movie-card{
     position: relative;
-    color: #f4f4f4;
+    color: $light-gray;
     background-size: cover;
     height: 360px;
     width: 250px;
-    box-shadow: 1px 1px 5px black;
+    box-shadow: 1px 1px 5px $black;
     transition: all 0.4s ease-in-out;
     .movie-details{
         .movie-title{
@@ -19,7 +21,7 @@ a{
         position: absolute;
         z-index: 2;
         .release-date{
-            color: #d7ddd1;
+            color: $main-color;
             font-size: 12px;
         }
     }
@@ -33,7 +35,7 @@ a{
         justify-content: center;
         align-items: center;
         p{
-            color:#d7ddd1;
+            color:$main-color;
         }
     }
     .movie-popularity{
@@ -55,7 +57,7 @@ a{
     content: "";
     top:0;
     left: 0;
-    background: linear-gradient(transparent 20%, black);
+    background: linear-gradient(transparent 20%, $black);
     position: absolute;
     height:100%;
     z-index: 1;
@@ -75,6 +77,6 @@ a{
 }
 .movie-card:hover{
     border: 1px solid #d7ddd1;
-    box-shadow: 0px 3px 7px black;
+    box-shadow: 0px 3px 7px $black;
     transform: scale(1.025);
 }
