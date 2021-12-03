@@ -29,7 +29,7 @@ export const MovieCard = ({movie}) => {
                         <p className="release-date">{movie.release_date}</p>
                     </div>
                     <div className="movie-popularity">
-                        <img src={Star} width="15" />
+                        <img src={Star} width="15" alt="Star" />
                         <p>{movie.popularity}</p>
                     </div>
                 </div>

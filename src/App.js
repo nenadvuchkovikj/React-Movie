@@ -10,10 +10,10 @@ function App() {
       <Navbar />
       <div className="App-body">
         <Switch>
-          <Route path="/movies" exact component={MovieList} />
+          <Route path="/movies/:currentPage" exact component={MovieList} />
           <Route path="/movies/id/:movieId" exact component={MovieDetails} />
-          <Route exact path="/">
-              <Redirect to="/movies" />
+          <Route exact path="/*">
+              <Redirect to="/movies/1" />
           </Route>
         </Switch>
       </div>

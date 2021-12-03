@@ -7,7 +7,7 @@ export const Navbar = () => {
     return (
         <div className="navbar">
             <Link to={'/movies'}>
-                <img src={Movie} width="40" />
+                <img src={Movie} width="40" alt="Movie" />
                 <h1>React Movie</h1>
             </Link>
         </div>
